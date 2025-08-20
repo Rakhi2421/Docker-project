@@ -7,7 +7,7 @@ volumes:
 
 services:
   mysql:
-    image: rakhi/mysql
+    image: srirakesh124/mysql
     networks:
       - rakhi
     container_name: mysql
@@ -15,7 +15,7 @@ services:
       - mysql-data:/var/lib/mysql
 
   backend:
-    image: rakhi/backend
+    image: srirakesh124/backend
     command: sh -c "sleep 15 && node /opt/backend/index.js"
     networks:
     - rakhi
@@ -24,7 +24,7 @@ services:
     container_name: backend
 
   frontend:
-    image: rakhi/frontend
+    image: srirakesh124/frontend
     networks:
     - rakhi
     container_name: frontend
