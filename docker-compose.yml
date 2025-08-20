@@ -1,0 +1,35 @@
+networks:
+  # The presence of these objects is sufficient to define them
+  rakhi: {}  #To create the own docker network
+
+volumes:
+  mysql-data: #To create the docker volume
+
+services:
+  mysql:
+    image: rakhi/mysql
+    networks:
+      - rakhi
+    container_name: mysql
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  backend:
+    image: rakhi/backend
+    command: sh -c "sleep 15 && node /opt/backend/index.js"
+    networks:
+    - rakhi
+    depends_on:
+    - mysql
+    container_name: backend
+
+  frontend:
+    image: rakhi/frontend
+    networks:
+    - rakhi
+    container_name: frontend
+    ports:
+    - 80:80
+    depends_on:
+    - backend
+  
